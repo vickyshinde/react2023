@@ -1,0 +1,60 @@
+{
+  "Users": [
+    {
+      "id": 1,
+      "name": "Vicky Shinde",
+      "email": "vicky@webonise.com",
+      "contact": "9999999111",
+      "password": "Vicky123QQ1"
+    },
+    {
+      "id": 2,
+      "name": "Sharvari Shinde",
+      "email": "sharvari@webonise.com",
+      "contact": "888888888",
+      "password": "Sharvari123"
+    },
+    {
+      "id": 3,
+      "name": "Sharvari Shinde",
+      "email": "sharvari@gmail.com",
+      "contact": "888888888",
+      "password": "Sharvari123"
+    },
+    {
+      "name": "Piyush Shinde",
+      "email": "piyush@gmail.ocm",
+      "contact": "5539937653",
+      "password": "Piyush1234Q",
+      "id": 6
+    },
+    {
+      "name": "Manish Shinde",
+      "email": "manish@gmail.com",
+      "contact": "1111111111",
+      "password": "Manish123A",
+      "id": 7
+    },
+    {
+      "name": "mitali",
+      "email": "mitali@123.com",
+      "contact": "1111111111",
+      "password": "@w3e235jfhfhfsuW",
+      "id": 8
+    },
+    {
+      "name": "Reshma Shinde",
+      "email": "reshma@gmail.com",
+      "contact": "2222221111",
+      "password": "Q2w3fkdsfknd",
+      "id": 9
+    },
+    {
+      "name": "sharvari 30",
+      "email": "test@gmail.com",
+      "contact": "4567890123",
+      "password": "Aw@w4ddgy",
+      "id": 10
+    }
+  ]
+}
