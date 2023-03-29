@@ -9,8 +9,7 @@ export const getUsers = async () => {
 };
 
 export const getUsersAdv = async (controller) => {
-  // const url = `${API_URL}/users`;
-  const url = `http://localhost:5000/Users?_page=${controller.page}&_limit=${controller.rowsPerPage}&q=${controller.searchInput}&_sort=${controller.sortColumn}&_order=${controller.order}`;
-  console.log(url, controller);
+  const url = `${API_URL}/users?_page=${controller.currentPage}&_limit=${controller.rowsPerPage}&q=${controller.searchInput}&_sort=${controller.sortColumn}&_order=${controller.order}`;
+  console.log('url', url, controller);
   return await fetch(url);
 };

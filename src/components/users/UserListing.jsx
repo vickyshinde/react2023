@@ -31,7 +31,7 @@ const UserListing = () => {
     <div className="userListPage">
       <h2>User List</h2>
       {loader ? (
-        <h2>loading....</h2>
+        <h2 style={{color: 'red'}}>loading....</h2>
       ) : (
         <table className="table table-bordered">
           <thead>

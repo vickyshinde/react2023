@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getUsersAdv } from '../../config/api-endpoints';
-import { Pagination } from '@mui/material';
+import Pagination from '../Pagination/Pagination';
 
-const UserListingAdv = () => {
+const UserListingAdv1 = () => {
   const [userList, setUserList] = useState([]);
   const [totalCount, setTotalCount] = useState([]);
   const [controller, setController] = useState({
@@ -16,6 +16,11 @@ const UserListingAdv = () => {
   const [loader, setLoader] = useState(false);
   const [apiError, setApiError] = useState('');
 
+  // pagination limit
+  const [pageNumberLimit] = useState(5);
+  const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
+  const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -25,7 +30,7 @@ const UserListingAdv = () => {
         if (!response.ok) throw new Error(`${response.status} Problem with getting data`);
         const data = await response.json();
         // console.log(data);
-        const totalCount = Math.ceil(response.headers.get('X-Total-Count') / controller.rowsPerPage);
+        const totalCount = Math.ceil(response.headers.get('X-Total-Count'));
         setUserList(data);
         setTotalCount(totalCount);
         setLoader(false);
@@ -40,14 +45,39 @@ const UserListingAdv = () => {
   }, [controller]);
   // console.log(userList);
 
-
-  const handlePageChange = (event, newPage) => {
-    console.log(event);
-    console.log(newPage);
+  const paginate = (e, pageNumber) => {
+    e.preventDefault();
     setController({
       ...controller,
-      currentPage: newPage
+      currentPage: pageNumber
     });
+    // setCurrentPage(pageNumber);
+  };
+
+  const paginatePrev = (e, pageNumber) => {
+    e.preventDefault();
+    setController({
+      ...controller,
+      currentPage: pageNumber - 1
+    });
+    // setCurrentPage(pageNumber - 1);
+    if ((controller.currentPage - 1) % pageNumberLimit === 0) {
+      setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+      setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+    }
+  };
+
+  const paginateNext = (e, pageNumber) => {
+    e.preventDefault();
+    setController({
+      ...controller,
+      currentPage: pageNumber + 1
+    });
+    // setCurrentPage(pageNumber + 1);
+    if (controller.currentPage + 1 > maxPageNumberLimit) {
+      setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+      setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+    }
   };
 
   const searchItems = (searchValue) => {
@@ -70,7 +100,7 @@ const UserListingAdv = () => {
 
   return (
     <div className="userListPage">
-      <h2>User List</h2>
+      <h2>User List - Custom Pagination</h2>
       <input
         label="Search"
         name="search"
@@ -80,18 +110,29 @@ const UserListingAdv = () => {
         onChange={(e) => searchItems(e.target.value)}
         val={controller.searchInput}
       />
+      <span>Showing {userList.length > controller.rowsPerPage ? controller.rowsPerPage: userList.length} out of {totalCount} entries</span>
       {loader ? (
-        <h2 style={{color: 'red'}}>loading....</h2>
+        <h2 style={{ color: 'red' }}>loading....</h2>
       ) : (
         <table className="table table-bordered" width="100%">
           <thead>
             <tr>
               <th scope="col">index</th>
-              <th scope="col" onClick={() => sorting('id')}>#</th>
-              <th scope="col" onClick={() => sorting('name')}>Name</th>
-              <th scope="col" onClick={() => sorting('email')}>Email</th>
-              <th scope="col" onClick={() => sorting('contact')}>contact</th>
-              <th scope="col" onClick={() => sorting('password')}>password</th>
+              <th scope="col" onClick={() => sorting('id')}>
+                #
+              </th>
+              <th scope="col" onClick={() => sorting('name')}>
+                Name
+              </th>
+              <th scope="col" onClick={() => sorting('email')}>
+                Email
+              </th>
+              <th scope="col" onClick={() => sorting('contact')}>
+                contact
+              </th>
+              <th scope="col" onClick={() => sorting('password')}>
+                password
+              </th>
               <th scope="col">action</th>
             </tr>
           </thead>
@@ -117,18 +158,24 @@ const UserListingAdv = () => {
         </table>
       )}
       {apiError && apiError}
+      
       {userList.length ? (
         <Pagination
-          count={totalCount}
-          page={controller.currentPage}
-          onChange={handlePageChange}
-          variant="outlined"
-          shape="rounded"
-          color="secondary"
+          postsPerPage={controller.rowsPerPage}
+          totalPosts={totalCount}
+          paginate={paginate}
+          currentPage={controller.currentPage}
+          paginatePrev={paginatePrev}
+          paginateNext={paginateNext}
+          pageNumberLimit={pageNumberLimit}
+          maxPageNumberLimit={maxPageNumberLimit}
+          minPageNumberLimit={minPageNumberLimit}
         />
-      ) : 'no results'}
+      ) : (
+        'no results'
+      )}
     </div>
   );
 };
 
-export default UserListingAdv;
+export default UserListingAdv1;
