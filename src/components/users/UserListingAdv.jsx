@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getUsersAdv } from '../../config/api-endpoints';
 import { Pagination } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 const UserListingAdv = () => {
   const [userList, setUserList] = useState([]);
@@ -40,7 +41,6 @@ const UserListingAdv = () => {
   }, [controller]);
   // console.log(userList);
 
-
   const handlePageChange = (event, newPage) => {
     console.log(event);
     console.log(newPage);
@@ -68,30 +68,78 @@ const UserListingAdv = () => {
     });
   };
 
+  const [filterOption, setFilterOption] = useState('all');
+  const handleFilter = (event) => {
+    setController({
+      ...controller,
+      searchInput: event.target.value,
+      currentPage: 1
+    });
+    console.log('hi');
+    setFilterOption(event.target.value);
+  };
+  console.log(filterOption);
+
   return (
     <div className="userListPage">
-      <h2>User List</h2>
-      <input
-        label="Search"
-        name="search"
-        type="text"
-        className="form-control"
-        placeholder="Search..."
-        onChange={(e) => searchItems(e.target.value)}
-        val={controller.searchInput}
-      />
+      <h2 className="my-4">User List</h2>
+      <NavLink exact className="btn btn-outline-danger mb-4" to="/student-create">
+        Create User
+      </NavLink>
+      <div className="row mb-3">
+        <div className="col">
+          <input
+            label="Search"
+            name="search"
+            type="text"
+            className="form-control"
+            placeholder="Search..."
+            autoComplete="off"
+            onChange={(e) => searchItems(e.target.value)}
+            val={controller.searchInput}
+          />
+        </div>
+        <div className="col">
+          <select
+            className="form-select"
+            aria-label="Default select example"
+            value={filterOption}
+            onChange={handleFilter}>
+            <option selected value={''}>
+              Open this select menu
+            </option>
+            <option value="gdodson1@kickstarter.com">gdodson1@kickstarter.com</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+        <div className="col text-end">
+          Showing <strong>{userList.length > controller.rowsPerPage ? controller.rowsPerPage : userList.length}</strong>{' '}
+          out of <strong>{totalCount}</strong> entries
+        </div>
+      </div>
       {loader ? (
-        <h2 style={{color: 'red'}}>loading....</h2>
+        <h2 style={{ color: 'red' }}>loading....</h2>
       ) : (
-        <table className="table table-bordered" width="100%">
+        <table className="table table-bordered table-sm table-hover table-striped" width="100%">
           <thead>
             <tr>
               <th scope="col">index</th>
-              <th scope="col" onClick={() => sorting('id')}>#</th>
-              <th scope="col" onClick={() => sorting('name')}>Name</th>
-              <th scope="col" onClick={() => sorting('email')}>Email</th>
-              <th scope="col" onClick={() => sorting('contact')}>contact</th>
-              <th scope="col" onClick={() => sorting('password')}>password</th>
+              <th scope="col" onClick={() => sorting('id')}>
+                #
+              </th>
+              <th scope="col" onClick={() => sorting('name')}>
+                Name
+              </th>
+              <th scope="col" onClick={() => sorting('email')}>
+                Email
+              </th>
+              <th scope="col" onClick={() => sorting('contact')}>
+                contact
+              </th>
+              <th scope="col" onClick={() => sorting('password')}>
+                password
+              </th>
               <th scope="col">action</th>
             </tr>
           </thead>
@@ -107,8 +155,8 @@ const UserListingAdv = () => {
                   <td>{contact}</td>
                   <td>{password}</td>
                   <td>
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <button className="btn btn-outline-primary btn-sm me-2">Edit</button>
+                    <button className="btn btn-outline-danger btn-sm">Delete</button>
                   </td>
                 </tr>
               );
@@ -126,7 +174,9 @@ const UserListingAdv = () => {
           shape="rounded"
           color="secondary"
         />
-      ) : 'no results'}
+      ) : (
+        'no results'
+      )}
     </div>
   );
 };

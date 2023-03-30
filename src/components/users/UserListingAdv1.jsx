@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getUsersAdv } from '../../config/api-endpoints';
-import Pagination from '../Pagination/Pagination';
+import Pagination from '../Shared/Pagination/Pagination';
 
 const UserListingAdv1 = () => {
   const [userList, setUserList] = useState([]);
@@ -100,21 +100,38 @@ const UserListingAdv1 = () => {
 
   return (
     <div className="userListPage">
-      <h2>User List - Custom Pagination</h2>
-      <input
-        label="Search"
-        name="search"
-        type="text"
-        className="form-control"
-        placeholder="Search..."
-        onChange={(e) => searchItems(e.target.value)}
-        val={controller.searchInput}
-      />
-      <span>Showing {userList.length > controller.rowsPerPage ? controller.rowsPerPage: userList.length} out of {totalCount} entries</span>
+      <h2 className="my-4">User List - Custom Pagination</h2>
+      <div className="row mb-3">
+        <div className="col">
+          <input
+            label="Search"
+            name="search"
+            type="text"
+            className="form-control"
+            placeholder="Search..."
+            autoComplete='off'
+            onChange={(e) => searchItems(e.target.value)}
+            val={controller.searchInput}
+          />
+        </div>
+        <div className="col">
+          <select className="form-select" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+        <div className="col text-end">
+          Showing <strong>{userList.length > controller.rowsPerPage ? controller.rowsPerPage : userList.length}</strong> out of{' '}
+          <strong>{totalCount}</strong> entries
+        </div>
+      </div>
+
       {loader ? (
         <h2 style={{ color: 'red' }}>loading....</h2>
       ) : (
-        <table className="table table-bordered" width="100%">
+        <table className="table table-bordered table-sm table-hover table-striped" width="100%">
           <thead>
             <tr>
               <th scope="col">index</th>
@@ -148,8 +165,8 @@ const UserListingAdv1 = () => {
                   <td>{contact}</td>
                   <td>{password}</td>
                   <td>
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <button className="btn btn-outline-primary btn-sm me-2">Edit</button>
+                    <button className="btn btn-outline-danger btn-sm">Delete</button>
                   </td>
                 </tr>
               );
@@ -158,7 +175,7 @@ const UserListingAdv1 = () => {
         </table>
       )}
       {apiError && apiError}
-      
+
       {userList.length ? (
         <Pagination
           postsPerPage={controller.rowsPerPage}
