@@ -50,7 +50,7 @@ const UserInput = ({ label, id, name, type, clsName, placeholder, errorMsg, isVa
     return null;
   });
   return (
-    <div className="form-group row">
+    <div className="mb-3 row">
       {label && (
         <label className="col-sm-3 col-form-label" htmlFor={id}>
           {label}
@@ -62,7 +62,7 @@ const UserInput = ({ label, id, name, type, clsName, placeholder, errorMsg, isVa
             className={`${clsName} ${isValid ? 'is-invalid' : ''}`}
             id={id}
             onChange={(event) => {
-              onChange(event.target.value);
+              onChange(event.target.name, event.target.value);
             }}>
             <option defaultValue>{val ? selectedVal : placeholder}</option>
             {selectList.map((item) => {
@@ -83,7 +83,7 @@ const UserInput = ({ label, id, name, type, clsName, placeholder, errorMsg, isVa
             autoComplete="off"
             value={val}
             onChange={(event) => {
-              onChange(event.target.value);
+              onChange(event.target.name, event.target.value);
             }}
           />
         )}
@@ -102,7 +102,7 @@ UserInput.defaultProps = {
   placeholder: 'placeholder',
   value: '',
   onChange: () => {},
-  selectList: [],
+  selectList: []
 };
 
 UserInput.propTypes = {
@@ -116,7 +116,7 @@ UserInput.propTypes = {
   isValid: PropTypes.bool,
   value: PropTypes.string,
   onChange: PropTypes.func,
-  selectList: PropTypes.array,
+  selectList: PropTypes.array
 };
 
 export default UserInputWrapped;

@@ -83,7 +83,7 @@ const UserListingAdv = () => {
   return (
     <div className="userListPage">
       <h2 className="my-4">User List</h2>
-      <NavLink exact className="btn btn-outline-danger mb-4" to="/student-create">
+      <NavLink className="btn btn-outline-danger mb-4" to="/user-add">
         Create User
       </NavLink>
       <div className="row mb-3">

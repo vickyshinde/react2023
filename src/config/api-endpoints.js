@@ -13,3 +13,13 @@ export const getUsersAdv = async (controller) => {
   console.log('url', url, controller);
   return await fetch(url);
 };
+
+//Add User
+export const addUser = async (newUser) => {
+  console.log(newUser);
+  return await fetch(`${API_URL}/users`, {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(newUser)
+  });
+};
