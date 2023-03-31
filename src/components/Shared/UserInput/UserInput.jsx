@@ -38,10 +38,7 @@ const UserInputWrapped = (props) => {
   );
 };
 
-const UserInput = ({ label, id, name, type, clsName, placeholder, errorMsg, isValid, onChange, val, selectList }) => {
-  // useEffect(() => {
-  //   throw new Error();
-  // }, []);
+const UserInput = ({ label, id, name, type, clsName, placeholder, isValid, onChange, val, selectList }) => {
 
   const selectedVal = selectList.map((item) => {
     if (val === item.id) {
@@ -49,6 +46,7 @@ const UserInput = ({ label, id, name, type, clsName, placeholder, errorMsg, isVa
     }
     return null;
   });
+  console.log(selectedVal);
   return (
     <div className="mb-3 row">
       {label && (
@@ -61,10 +59,12 @@ const UserInput = ({ label, id, name, type, clsName, placeholder, errorMsg, isVa
           <select
             className={`${clsName} ${isValid ? 'is-invalid' : ''}`}
             id={id}
+            name={name}
             onChange={(event) => {
               onChange(event.target.name, event.target.value);
+              console.log(event.target.name, event.target.value)
             }}>
-            <option defaultValue>{val ? selectedVal : placeholder}</option>
+            <option defaultValue>{placeholder}</option>
             {selectList.map((item) => {
               return (
                 <option key={item.id} value={item.id}>
@@ -87,7 +87,7 @@ const UserInput = ({ label, id, name, type, clsName, placeholder, errorMsg, isVa
             }}
           />
         )}
-        {isValid && <small className="invalid-feedback">{errorMsg}</small>}
+        {isValid && <small className="invalid-feedback">{isValid}</small>}
       </div>
     </div>
   );
@@ -112,8 +112,7 @@ UserInput.propTypes = {
   type: PropTypes.string,
   clsName: PropTypes.string,
   placeholder: PropTypes.string,
-  errorMsg: PropTypes.string,
-  isValid: PropTypes.bool,
+  isValid: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
   selectList: PropTypes.array
