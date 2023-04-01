@@ -38,15 +38,14 @@ const UserInputWrapped = (props) => {
   );
 };
 
-const UserInput = ({ label, id, name, type, clsName, placeholder, isValid, onChange, val, selectList }) => {
+const UserInput = ({ label, id, name, type, clsName, placeholder, isValid, onChange, value, selectList }) => {
 
-  const selectedVal = selectList.map((item) => {
+  /* const selectedVal = selectList.map((item) => {
     if (val === item.id) {
       return item.name;
     }
     return null;
-  });
-  console.log(selectedVal);
+  }); */
   return (
     <div className="mb-3 row">
       {label && (
@@ -62,7 +61,6 @@ const UserInput = ({ label, id, name, type, clsName, placeholder, isValid, onCha
             name={name}
             onChange={(event) => {
               onChange(event.target.name, event.target.value);
-              console.log(event.target.name, event.target.value)
             }}>
             <option defaultValue>{placeholder}</option>
             {selectList.map((item) => {
@@ -81,9 +79,10 @@ const UserInput = ({ label, id, name, type, clsName, placeholder, isValid, onCha
             name={name}
             placeholder={placeholder}
             autoComplete="off"
-            value={val}
+            value={value}
             onChange={(event) => {
               onChange(event.target.name, event.target.value);
+              console.log(event.target.name, event.target.value)
             }}
           />
         )}

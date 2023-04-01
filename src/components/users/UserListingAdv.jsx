@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getUsersAdv } from '../../config/api-endpoints';
 import { Pagination } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
 const UserListingAdv = () => {
+  const navigate = useNavigate();
   const [userList, setUserList] = useState([]);
   const [totalCount, setTotalCount] = useState([]);
   const [controller, setController] = useState({
@@ -78,7 +80,7 @@ const UserListingAdv = () => {
     console.log('hi');
     setFilterOption(event.target.value);
   };
-  console.log(filterOption);
+  // console.log(filterOption);
 
   return (
     <div className="userListPage">
@@ -155,7 +157,13 @@ const UserListingAdv = () => {
                   <td>{contact}</td>
                   <td>{password}</td>
                   <td>
-                    <button className="btn btn-outline-primary btn-sm me-2">Edit</button>
+                    <button
+                      className="btn btn-outline-primary btn-sm me-2"
+                      onClick={() => {
+                        navigate(`/user-edit/${item.id}`);
+                      }}>
+                      Edit
+                    </button>
                     <button className="btn btn-outline-danger btn-sm">Delete</button>
                   </td>
                 </tr>

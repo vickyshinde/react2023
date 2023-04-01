@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Loader from '../components/Shared/Loader';
 import UserListingAdv1 from '../components/users/UserListingAdv1';
+import UserEdit from '../components/users/UserEdit';
 
 const ErrorPage = lazy(() => import('../components/ErrorPage/ErrorPage'));
 const Layout = lazy(() => import('../components/Layout/Layout'));
@@ -51,6 +52,14 @@ export const AppRoutes = () => {
             element={
               <Suspense fallback={<Loader />}>
                 <UserAdd />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/user-edit/:id"
+            element={
+              <Suspense fallback={<Loader />}>
+                <UserEdit />
               </Suspense>
             }
           />

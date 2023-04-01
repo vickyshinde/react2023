@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { addUser } from '../../config/api-endpoints';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { editUser, getOneUsersAdv } from '../../config/api-endpoints';
 import SubmitButtonWrapped from '../Shared/SubmitButton/SubmitButton';
 import UserInputWrapped from '../Shared/UserInput/UserInput';
+
 
 const occupationList = [
   {
@@ -18,8 +19,9 @@ const occupationList = [
     name: '3'
   }
 ];
-const UserAdd = () => {
+const UserEdit = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const [loader, setLoader] = useState(false);
   const [formData, setFromData] = useState({
@@ -41,7 +43,25 @@ const UserAdd = () => {
     }));
   };
 
-  // console.log(formData);
+  useEffect(() => {
+    const loadUserData = async () => {
+      try {
+        setLoader(true);
+        const response = await getOneUsersAdv(id);
+        // console.log(response);
+        if (!response.ok) throw new Error(`${response.status} Problem with getting data`);
+        const data = await response.json();
+        // console.log(data);
+
+        setFromData(data);
+        setLoader(false);
+      } catch (err) {
+        console.error(`${err.message} 💥`);
+      }
+    };
+    loadUserData();
+  }, [id]);
+  console.log(formData);
 
   // validation
   const [fromError, setFromError] = useState({});
@@ -88,7 +108,7 @@ const UserAdd = () => {
     if (isValid) {
       try {
         setLoader(true);
-        const response = await addUser(formData);
+        const response = await editUser(id, formData);
         console.log(response);
         if (!response.ok) throw new Error(`${response.status} Problem with getting data`);
         // console.log(data);
@@ -103,7 +123,7 @@ const UserAdd = () => {
   };
   return (
     <div className="userAddPage">
-      <h2 className="my-4">User Add</h2>
+      <h2 className="my-4">Edit Add</h2>
       {loader && <h2 style={{ color: 'red' }}>loading....</h2>}
       <form onSubmit={onSubmitClick}>
         <div className="row">
@@ -187,4 +207,4 @@ const UserAdd = () => {
   );
 };
 
-export default UserAdd;
+export default UserEdit;
