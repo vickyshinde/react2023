@@ -14,3 +14,7 @@ code {
 .active {
   color: red;
 }
+
+.modal.show {
+  display: block;
+}

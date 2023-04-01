@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUsersAdv } from '../../config/api-endpoints';
+import { deleteUser, getUsersAdv } from '../../config/api-endpoints';
 import { Pagination } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import Modal from '../Shared/Modal/Modal';
 
 const UserListingAdv = () => {
   const navigate = useNavigate();
@@ -82,6 +83,40 @@ const UserListingAdv = () => {
   };
   // console.log(filterOption);
 
+  // delete user
+  const [modalDeleteShow, setModalDeleteShow] = useState(false);
+  const [modalDeleteID, setModalDeleteID] = useState(false);
+  const handleDeleteClose = () => {
+    console.log('hi');
+    setModalDeleteShow(false);
+  }
+  const handleDeleteShow = (id) => {
+    console.log(id);
+    setModalDeleteID(id);
+    setModalDeleteShow(true);
+  }
+
+
+  const [deleteUserMsg, setDeleteUserMsg] = useState('');
+  const handleDelete = async (id) => {
+    try {
+      setLoader(true);
+      const response = await deleteUser(id);
+      // console.log(response);
+      if (!response.ok) throw new Error(`${response.status} - no user found with id - ${id}`);
+      setDeleteUserMsg(`user with id ${id} deleted successfully`);
+      setLoader(false);
+    } catch (err) {
+      setLoader(false);
+      console.error(`${err.message} 💥`);
+      setApiError(`${err.message} 💥`);
+    }
+    setModalDeleteShow(false);
+    // getData();
+    // if (window.confirm(`Are you wanted to delete the User with id - ${id}`)) {
+    // }
+  };
+
   return (
     <div className="userListPage">
       <h2 className="my-4">User List</h2>
@@ -107,7 +142,7 @@ const UserListingAdv = () => {
             aria-label="Default select example"
             value={filterOption}
             onChange={handleFilter}>
-            <option selected value={''}>
+            <option defaultValue value={''}>
               Open this select menu
             </option>
             <option value="gdodson1@kickstarter.com">gdodson1@kickstarter.com</option>
@@ -164,7 +199,12 @@ const UserListingAdv = () => {
                       }}>
                       Edit
                     </button>
-                    <button className="btn btn-outline-danger btn-sm">Delete</button>
+                    {/* <button className="btn btn-outline-danger btn-sm" onClick={() => handleDelete(item.id)}>
+                      Delete
+                    </button> */}
+                    <button className="btn btn-outline-danger btn-sm" onClick={() => handleDeleteShow(item.id)}>
+                      Delete 
+                    </button>
                   </td>
                 </tr>
               );
@@ -172,6 +212,7 @@ const UserListingAdv = () => {
           </tbody>
         </table>
       )}
+      {deleteUserMsg && <div className="test">{deleteUserMsg}</div>}
       {apiError && apiError}
       {userList.length ? (
         <Pagination
@@ -185,6 +226,7 @@ const UserListingAdv = () => {
       ) : (
         'no results'
       )}
+      <Modal handleDelete={handleDelete} modalDeleteID={modalDeleteID} showModal={modalDeleteShow} hideModal={handleDeleteClose} />
     </div>
   );
 };

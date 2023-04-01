@@ -37,3 +37,12 @@ export const addUser = async (newUser) => {
     body: JSON.stringify(newUser)
   });
 };
+
+// same as get one user
+export const deleteUser = async (id) => {
+  const url = `${API_URL}/Users/${id}`;
+  console.log('url', url);
+  return await fetch(url, {
+    method: 'delete',
+  });
+};
