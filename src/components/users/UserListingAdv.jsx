@@ -19,24 +19,25 @@ const UserListingAdv = () => {
   const [loader, setLoader] = useState(false);
   const [apiError, setApiError] = useState('');
 
+  const getData = async () => {
+    try {
+      setLoader(true);
+      const response = await getUsersAdv(controller);
+      // console.log(response);
+      if (!response.ok) throw new Error(`${response.status} Problem with getting data`);
+      const data = await response.json();
+      // console.log(data);
+      const totalPageCount = Math.ceil(response.headers.get('X-Total-Count') / controller.rowsPerPage);
+      setUserList(data);
+      setTotalCount(totalPageCount);
+      setLoader(false);
+    } catch (err) {
+      console.error(`${err.message} 💥`);
+      setApiError(`${err.message} 💥`);
+    }
+  };
+
   useEffect(() => {
-    const getData = async () => {
-      try {
-        setLoader(true);
-        const response = await getUsersAdv(controller);
-        // console.log(response);
-        if (!response.ok) throw new Error(`${response.status} Problem with getting data`);
-        const data = await response.json();
-        // console.log(data);
-        const totalPageCount = Math.ceil(response.headers.get('X-Total-Count') / controller.rowsPerPage);
-        setUserList(data);
-        setTotalCount(totalPageCount);
-        setLoader(false);
-      } catch (err) {
-        console.error(`${err.message} 💥`);
-        setApiError(`${err.message} 💥`);
-      }
-    };
     getData();
     // console.log(controller.sortColumn);
     // console.log(controller.order);
@@ -58,14 +59,14 @@ const UserListingAdv = () => {
       searchInput: searchValue,
       currentPage: 1
     });
-    // console.log(searchValue);
+    // highlightText
   };
 
   const sorting = (col) => {
     setController({
       ...controller,
       sortColumn: col,
-      order: controller.order === 'desc' ? 'asc' : 'desc',
+      order: controller.order === 'asc' ? 'desc' : 'asc',
       currentPage: 1
     });
   };
@@ -109,7 +110,7 @@ const UserListingAdv = () => {
       setApiError(`${err.message} 💥`);
     }
     setModalDeleteShow(false);
-    // getData();
+    getData();
     // if (window.confirm(`Are you wanted to delete the User with id - ${id}`)) {
     // }
   };
@@ -213,7 +214,7 @@ const UserListingAdv = () => {
           </tbody>
         </table>
       )}
-      {deleteUserMsg && <div className="test">{deleteUserMsg}</div>}
+      {deleteUserMsg && <div className="alert alert-danger">{deleteUserMsg}</div>}
       {apiError && apiError}
       {userList.length ? (
         <Pagination

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { addUser } from '../../config/api-endpoints';
 import SubmitButtonWrapped from '../Shared/SubmitButton/SubmitButton';
 import UserInputWrapped from '../Shared/UserInput/UserInput';
+import AlertMessage from '../Shared/AlertMessage/AlertMessage';
 
 const occupationList = [
   {
@@ -21,6 +22,10 @@ const occupationList = [
 const UserAdd = () => {
   const navigate = useNavigate();
 
+  const [displayUserMsg, setDisplayUserMsg] = useState({
+    clsName: '',
+    msg: ''
+  });
   const [loader, setLoader] = useState(false);
   const [formData, setFromData] = useState({
     name: '',
@@ -96,9 +101,17 @@ const UserAdd = () => {
       } catch (err) {
         console.error(`${err.message} 💥`);
       }
-      alert('submitted');
+      // alert('submitted');
+      setDisplayUserMsg({
+        clsName: 'alert-success',
+        msg: 'User added successfully (submitted)'
+      });
     } else {
-      alert('inValid form');
+      // alert('inValid form');
+      setDisplayUserMsg({
+        clsName: 'alert-danger',
+        msg: 'Please fill all the required fields (inValid form)'
+      });
     }
   };
   return (
@@ -108,6 +121,7 @@ const UserAdd = () => {
       <form onSubmit={onSubmitClick}>
         <div className="row">
           <div className="col-lg-6 offset-lg-3">
+            {displayUserMsg && <AlertMessage clsName={displayUserMsg.clsName} msg={displayUserMsg.msg} />}
             <UserInputWrapped
               label="Name"
               id="name"

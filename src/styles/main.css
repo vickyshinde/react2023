@@ -18,3 +18,8 @@ code {
 .modal.show {
   display: block;
 }
+
+mark {
+  background-color: yellow;
+  color: inherit;
+}
