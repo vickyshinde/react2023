@@ -1,15 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./styles/main.css";
-import reportWebVitals from "./reportWebVitals";
-import AppRoutes from "./routes";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './styles/main.css';
+import reportWebVitals from './reportWebVitals';
+import { AppRoutes } from './routes';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-      <AppRoutes />
+    <AppRoutes />
   </React.StrictMode>
 );
 

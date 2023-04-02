@@ -9,15 +9,18 @@ class UserInputErrorBoundary extends React.Component {
 
   static getDerivedStateFromError(error) {
     // Update state so the next render will show the fallback UI.
+    console.log(error);
     return { hasError: true };
   }
 
   componentDidCatch(error, info) {
     // You can also log the error to an error reporting service
     // logErrorToMyService(error, info);
+    console.log(error, info);
   }
 
   render() {
+    // eslint-disable-next-line react/destructuring-assignment
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
@@ -26,6 +29,7 @@ class UserInputErrorBoundary extends React.Component {
         </div>
       );
     }
+    // eslint-disable-next-line react/destructuring-assignment, react/prop-types
     return this.props.children;
   }
 }
@@ -39,7 +43,6 @@ const UserInputWrapped = (props) => {
 };
 
 const UserInput = ({ label, id, name, type, clsName, placeholder, isValid, onChange, value, selectList }) => {
-
   /* const selectedVal = selectList.map((item) => {
     if (val === item.id) {
       return item.name;
@@ -82,7 +85,7 @@ const UserInput = ({ label, id, name, type, clsName, placeholder, isValid, onCha
             value={value}
             onChange={(event) => {
               onChange(event.target.name, event.target.value);
-              console.log(event.target.name, event.target.value)
+              console.log(event.target.name, event.target.value);
             }}
           />
         )}
@@ -92,6 +95,8 @@ const UserInput = ({ label, id, name, type, clsName, placeholder, isValid, onCha
   );
 };
 
+export default UserInputWrapped;
+
 UserInput.defaultProps = {
   id: '',
   name: '',
@@ -100,6 +105,7 @@ UserInput.defaultProps = {
   clsName: 'inputClass',
   placeholder: 'placeholder',
   value: '',
+  isValid: '',
   onChange: () => {},
   selectList: []
 };
@@ -114,7 +120,6 @@ UserInput.propTypes = {
   isValid: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  // eslint-disable-next-line react/forbid-prop-types
   selectList: PropTypes.array
 };
-
-export default UserInputWrapped;

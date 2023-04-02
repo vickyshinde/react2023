@@ -76,20 +76,20 @@ const UserAdd = () => {
 
     setFromError({ ...err });
 
-    console.log(Object.keys(err));
+    // console.log(Object.keys(err));
 
     return Object.keys(err).length < 1;
   };
 
   const onSubmitClick = async (event) => {
     event.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     const isValid = validateFrom();
     if (isValid) {
       try {
         setLoader(true);
         const response = await addUser(formData);
-        console.log(response);
+        // console.log(response);
         if (!response.ok) throw new Error(`${response.status} Problem with getting data`);
         // console.log(data);
         setLoader(false);

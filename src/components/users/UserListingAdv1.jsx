@@ -4,7 +4,7 @@ import Pagination from '../Shared/Pagination/Pagination';
 
 const UserListingAdv1 = () => {
   const [userList, setUserList] = useState([]);
-  const [totalCount, setTotalCount] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [controller, setController] = useState({
     currentPage: 1,
     rowsPerPage: 10,
@@ -30,9 +30,9 @@ const UserListingAdv1 = () => {
         if (!response.ok) throw new Error(`${response.status} Problem with getting data`);
         const data = await response.json();
         // console.log(data);
-        const totalCount = Math.ceil(response.headers.get('X-Total-Count'));
+        const totalPageCount = Math.ceil(response.headers.get('X-Total-Count'));
         setUserList(data);
-        setTotalCount(totalCount);
+        setTotalCount(totalPageCount);
         setLoader(false);
       } catch (err) {
         console.error(`${err.message} 💥`);
@@ -40,8 +40,8 @@ const UserListingAdv1 = () => {
       }
     };
     getData();
-    console.log(controller.sortColumn);
-    console.log(controller.order);
+    // console.log(controller.sortColumn);
+    // console.log(controller.order);
   }, [controller]);
   // console.log(userList);
 
@@ -86,7 +86,7 @@ const UserListingAdv1 = () => {
       searchInput: searchValue,
       currentPage: 1
     });
-    console.log(searchValue);
+    // console.log(searchValue);
   };
 
   const sorting = (col) => {
@@ -109,9 +109,9 @@ const UserListingAdv1 = () => {
             type="text"
             className="form-control"
             placeholder="Search..."
-            autoComplete='off'
+            autoComplete="off"
             onChange={(e) => searchItems(e.target.value)}
-            val={controller.searchInput}
+            value={controller.searchInput}
           />
         </div>
         <div className="col">
@@ -123,8 +123,8 @@ const UserListingAdv1 = () => {
           </select>
         </div>
         <div className="col text-end">
-          Showing <strong>{userList.length > controller.rowsPerPage ? controller.rowsPerPage : userList.length}</strong> out of{' '}
-          <strong>{totalCount}</strong> entries
+          Showing <strong>{userList.length > controller.rowsPerPage ? controller.rowsPerPage : userList.length}</strong>{' '}
+          out of <strong>{totalCount}</strong> entries
         </div>
       </div>
 
@@ -165,8 +165,12 @@ const UserListingAdv1 = () => {
                   <td>{contact}</td>
                   <td>{password}</td>
                   <td>
-                    <button className="btn btn-outline-primary btn-sm me-2">Edit</button>
-                    <button className="btn btn-outline-danger btn-sm">Delete</button>
+                    <button type="submit" className="btn btn-outline-primary btn-sm me-2">
+                      Edit
+                    </button>
+                    <button type="submit" className="btn btn-outline-danger btn-sm">
+                      Delete
+                    </button>
                   </td>
                 </tr>
               );

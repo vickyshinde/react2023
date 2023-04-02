@@ -25,15 +25,13 @@ const UserListing = () => {
   useEffect(() => {
     getData();
   }, []);
-  console.log(userList);
+  // console.log(userList);
 
   return (
     <div className="userListPage">
       <h2 className="my-4">User List</h2>
       {loader ? (
-        <h2 style={{ color: 'red' }}>
-          loading....
-        </h2>
+        <h2 style={{ color: 'red' }}>loading....</h2>
       ) : (
         <table className="table table-bordered table-sm table-hover table-striped" width="100%">
           <thead>

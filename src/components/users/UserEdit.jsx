@@ -4,7 +4,6 @@ import { editUser, getOneUsersAdv } from '../../config/api-endpoints';
 import SubmitButtonWrapped from '../Shared/SubmitButton/SubmitButton';
 import UserInputWrapped from '../Shared/UserInput/UserInput';
 
-
 const occupationList = [
   {
     id: 1,
@@ -61,7 +60,7 @@ const UserEdit = () => {
     };
     loadUserData();
   }, [id]);
-  console.log(formData);
+  // console.log(formData);
 
   // validation
   const [fromError, setFromError] = useState({});
@@ -96,20 +95,20 @@ const UserEdit = () => {
 
     setFromError({ ...err });
 
-    console.log(Object.keys(err));
+    // console.log(Object.keys(err));
 
     return Object.keys(err).length < 1;
   };
 
   const onSubmitClick = async (event) => {
     event.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     const isValid = validateFrom();
     if (isValid) {
       try {
         setLoader(true);
         const response = await editUser(id, formData);
-        console.log(response);
+        // console.log(response);
         if (!response.ok) throw new Error(`${response.status} Problem with getting data`);
         // console.log(data);
         setLoader(false);

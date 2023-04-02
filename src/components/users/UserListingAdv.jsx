@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { deleteUser, getUsersAdv } from '../../config/api-endpoints';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { Pagination } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { deleteUser, getUsersAdv } from '../../config/api-endpoints';
 import Modal from '../Shared/Modal/Modal';
 
 const UserListingAdv = () => {
@@ -29,9 +28,9 @@ const UserListingAdv = () => {
         if (!response.ok) throw new Error(`${response.status} Problem with getting data`);
         const data = await response.json();
         // console.log(data);
-        const totalCount = Math.ceil(response.headers.get('X-Total-Count') / controller.rowsPerPage);
+        const totalPageCount = Math.ceil(response.headers.get('X-Total-Count') / controller.rowsPerPage);
         setUserList(data);
-        setTotalCount(totalCount);
+        setTotalCount(totalPageCount);
         setLoader(false);
       } catch (err) {
         console.error(`${err.message} 💥`);
@@ -39,14 +38,14 @@ const UserListingAdv = () => {
       }
     };
     getData();
-    console.log(controller.sortColumn);
-    console.log(controller.order);
+    // console.log(controller.sortColumn);
+    // console.log(controller.order);
   }, [controller]);
   // console.log(userList);
 
   const handlePageChange = (event, newPage) => {
-    console.log(event);
-    console.log(newPage);
+    // console.log(event);
+    // console.log(newPage);
     setController({
       ...controller,
       currentPage: newPage
@@ -59,7 +58,7 @@ const UserListingAdv = () => {
       searchInput: searchValue,
       currentPage: 1
     });
-    console.log(searchValue);
+    // console.log(searchValue);
   };
 
   const sorting = (col) => {
@@ -78,24 +77,22 @@ const UserListingAdv = () => {
       searchInput: event.target.value,
       currentPage: 1
     });
-    console.log('hi');
     setFilterOption(event.target.value);
   };
   // console.log(filterOption);
 
   // delete user
   const [modalDeleteShow, setModalDeleteShow] = useState(false);
-  const [modalDeleteID, setModalDeleteID] = useState(false);
+  const [modalDeleteID, setModalDeleteID] = useState('');
   const handleDeleteClose = () => {
-    console.log('hi');
+    // console.log('hi');
     setModalDeleteShow(false);
-  }
+  };
   const handleDeleteShow = (id) => {
-    console.log(id);
+    // console.log(id);
     setModalDeleteID(id);
     setModalDeleteShow(true);
-  }
-
+  };
 
   const [deleteUserMsg, setDeleteUserMsg] = useState('');
   const handleDelete = async (id) => {
@@ -133,7 +130,7 @@ const UserListingAdv = () => {
             placeholder="Search..."
             autoComplete="off"
             onChange={(e) => searchItems(e.target.value)}
-            val={controller.searchInput}
+            value={controller.searchInput}
           />
         </div>
         <div className="col">
@@ -142,7 +139,7 @@ const UserListingAdv = () => {
             aria-label="Default select example"
             value={filterOption}
             onChange={handleFilter}>
-            <option defaultValue value={''}>
+            <option defaultValue value="">
               Open this select menu
             </option>
             <option value="gdodson1@kickstarter.com">gdodson1@kickstarter.com</option>
@@ -193,6 +190,7 @@ const UserListingAdv = () => {
                   <td>{password}</td>
                   <td>
                     <button
+                      type="submit"
                       className="btn btn-outline-primary btn-sm me-2"
                       onClick={() => {
                         navigate(`/user-edit/${item.id}`);
@@ -202,8 +200,11 @@ const UserListingAdv = () => {
                     {/* <button className="btn btn-outline-danger btn-sm" onClick={() => handleDelete(item.id)}>
                       Delete
                     </button> */}
-                    <button className="btn btn-outline-danger btn-sm" onClick={() => handleDeleteShow(item.id)}>
-                      Delete 
+                    <button
+                      type="submit"
+                      className="btn btn-outline-danger btn-sm"
+                      onClick={() => handleDeleteShow(item.id)}>
+                      Delete
                     </button>
                   </td>
                 </tr>
@@ -226,7 +227,12 @@ const UserListingAdv = () => {
       ) : (
         'no results'
       )}
-      <Modal handleDelete={handleDelete} modalDeleteID={modalDeleteID} showModal={modalDeleteShow} hideModal={handleDeleteClose} />
+      <Modal
+        handleDelete={handleDelete}
+        modalDeleteID={modalDeleteID}
+        showModal={modalDeleteShow}
+        hideModal={handleDeleteClose}
+      />
     </div>
   );
 };

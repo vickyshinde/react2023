@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const Pagination = ({
   postsPerPage,
   totalPosts,
@@ -11,7 +13,7 @@ const Pagination = ({
   maxPageNumberLimit,
   minPageNumberLimit
 }) => {
-  console.log(totalPosts);
+  // console.log(totalPosts);
   const pageNumbers = [];
 
   // eslint-disable-next-line no-plusplus
@@ -78,3 +80,31 @@ const Pagination = ({
 };
 
 export default Pagination;
+
+Pagination.defaultProps = {
+  postsPerPage: 10,
+  totalPosts: 0,
+  paginate: () => {},
+  currentPage: 1,
+  paginatePrev: () => {},
+  // isPrevDisabled,
+  // isNextDisabled,
+  paginateNext: () => {},
+  // pageNumberLimit,
+  maxPageNumberLimit: 5,
+  minPageNumberLimit: 0
+};
+
+Pagination.propTypes = {
+  postsPerPage: PropTypes.number,
+  totalPosts: PropTypes.number,
+  paginate: PropTypes.func,
+  currentPage: PropTypes.number,
+  paginatePrev: PropTypes.func,
+  // isPrevDisabled,
+  // isNextDisabled,
+  paginateNext: PropTypes.func,
+  // pageNumberLimit,
+  maxPageNumberLimit: PropTypes.number,
+  minPageNumberLimit: PropTypes.number
+};
