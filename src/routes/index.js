@@ -9,6 +9,7 @@ const Layout = lazy(() => import('../components/Layout/Layout'));
 const UserAdd = lazy(() => import('../components/users/UserAdd'));
 const UserListing = lazy(() => import('../components/users/UserListing'));
 const UserListingAdv = lazy(() => import('../components/users/UserListingAdv'));
+const UserAddMongo = lazy(() => import('../components/users/UserAddMongo'));
 
 export const AppRoutes = () => {
   return (
@@ -60,6 +61,14 @@ export const AppRoutes = () => {
             element={
               <Suspense fallback={<Loader />}>
                 <UserEdit />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/user-add-mongo"
+            element={
+              <Suspense fallback={<Loader />}>
+                <UserAddMongo />
               </Suspense>
             }
           />
