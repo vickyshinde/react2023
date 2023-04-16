@@ -1,6 +1,6 @@
 import { APP_CONSTANTS } from '../components/appConstants';
 
-const { API_USERS, API_URL } = APP_CONSTANTS;
+const { API_USERS, API_URL, API_URL_MONGODB } = APP_CONSTANTS;
 const usersApiEndPoint = `${API_URL}/Users/`;
 
 export const getUsers = () => {
@@ -48,4 +48,10 @@ export const deleteUser = (id) => {
   return fetch(url, {
     method: 'delete'
   });
+};
+
+export const getUsersFromMongoDB = () => {
+  const url = `http://localhost:5000/users`;
+  console.log(API_URL_MONGODB);
+  return fetch(url);
 };

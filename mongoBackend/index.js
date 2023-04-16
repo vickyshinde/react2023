@@ -40,9 +40,10 @@ console.log('App listen at port 5000');
 app.use(express.json());
 app.use(cors());
 app.get('/', (req, resp) => {
+  console.log('App is Working');
   resp.send('App is Working');
   // You can check backend is working or not by
-  // entering http://loacalhost:5000
+  // entering http://localhost:5000
 
   // If you see App is working means
   // backend working properly
@@ -64,4 +65,14 @@ app.post('/register', async (req, resp) => {
     resp.send('Something Went Wrong');
   }
 });
+
+app.get('/users', async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.json(users);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
 app.listen(5000);
