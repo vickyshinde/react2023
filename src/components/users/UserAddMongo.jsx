@@ -12,7 +12,8 @@ function UserAddMongo() {
   } = useForm({
     defaultValues: {
       name: '',
-      email: ''
+      email: '',
+      gender: ''
     }
   });
 
@@ -98,7 +99,13 @@ function UserAddMongo() {
               <label className="form-label">Name</label>
               <input
                 className={`form-control form-control-sm ${errors.name ? 'is-invalid' : ''}`}
-                {...register('name', { required: 'First name is required' })}
+                {...register('name', {
+                  required: 'First name is required',
+                  minLength: {
+                    value: 4,
+                    message: 'Too Many Characters'
+                  }
+                })}
                 aria-invalid={errors.name ? 'true' : 'false'}
               />
               {errors.name && <small className="invalid-feedback">{errors.name?.message}</small>}
@@ -107,11 +114,31 @@ function UserAddMongo() {
               <label className="form-label">Email</label>
               <input
                 className={`form-control form-control-sm ${errors.email ? 'is-invalid' : ''}`}
-                {...register('email', { required: 'Email Address is required' })}
+                {...register('email', {
+                  required: 'Email Address is required',
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: 'invalid email address'
+                  }
+                })}
                 aria-invalid={errors.email ? 'true' : 'false'}
               />
               {errors.email && <small className="invalid-feedback">{errors.email?.message}</small>}
             </div>
+            {/* <div className="mb-3">
+              <label className="form-label">Select Validation</label>
+              <select
+                className={`form-control form-control-sm ${errors.email ? 'is-invalid' : ''}`}
+                {...register('gender', {
+                  required: 'Gender is required'
+                })}>
+                <option defaultValue="">Select Option</option>
+                <option value="female">female</option>
+                <option value="male">male</option>
+                <option value="other">other</option>
+              </select>
+              {errors.gender && <small className="invalid-feedback">{errors.gender?.message}</small>}
+            </div> */}
             <input className="btn btn-outline-primary btn-sm mt-3" type="submit" />
           </form>
         </div>
