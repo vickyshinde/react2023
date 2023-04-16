@@ -99,6 +99,7 @@ const UserAdd = () => {
         // console.log(data);
         setLoader(false);
       } catch (err) {
+        setLoader(false);
         console.error(`${err.message} 💥`);
       }
       // alert('submitted');

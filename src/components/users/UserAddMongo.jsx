@@ -72,6 +72,7 @@ function UserAddMongo() {
       setUserList(data);
       setLoader(false);
     } catch (err) {
+      setLoader(false);
       console.error(`${err} 💥`);
       setApiError(`${err} 💥`);
     }

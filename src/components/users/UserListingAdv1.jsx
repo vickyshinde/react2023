@@ -35,6 +35,7 @@ const UserListingAdv1 = () => {
         setTotalCount(totalPageCount);
         setLoader(false);
       } catch (err) {
+        setLoader(false);
         console.error(`${err.message} 💥`);
         setApiError(`${err.message} 💥`);
       }
