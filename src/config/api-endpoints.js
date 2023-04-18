@@ -1,12 +1,22 @@
 import { APP_CONSTANTS } from '../components/appConstants';
+import { sendRequest } from './commonMethod';
 
 const { API_USERS, API_URL, API_URL_MONGODB } = APP_CONSTANTS;
 const usersApiEndPoint = `${API_URL}/Users/`;
 
-export const getUsers = () => {
+export const getUsers = async () => {
+  let responseData = {};
   const url = `${API_USERS}/users`;
-  // console.log(url);
-  return fetch(url);
+  console.log(url);
+  try {
+    responseData = await sendRequest('get', url);
+    console.log('api-endpoint', responseData);
+  } catch (error) {
+    console.log(error);
+  }
+
+  return responseData;
+  // return fetch(url);
 };
 
 export const getUsersAdv = (controller) => {

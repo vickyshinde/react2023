@@ -4,9 +4,9 @@ import { getUsers } from '../../config/api-endpoints';
 const UserListing = () => {
   const [userList, setUserList] = useState([]);
   const [loader, setLoader] = useState(false);
-  const [apiError, setApiError] = useState('');
+  // const [apiError, setApiError] = useState('');
   // const API = `https://jsonplaceholder.typicode.com/users`;
-  const getData = async () => {
+  /* const getData = async () => {
     try {
       setLoader(true);
       // const response = await fetch(url);
@@ -22,6 +22,13 @@ const UserListing = () => {
       console.error(`${err} 💥`);
       setApiError(`${err} 💥`);
     }
+  }; */
+
+  const getData = async () => {
+    setLoader(true);
+    const response = await getUsers();
+    setUserList(response);
+    setLoader(false);
   };
   useEffect(() => {
     getData();
@@ -62,7 +69,7 @@ const UserListing = () => {
           </tbody>
         </table>
       )}
-      {apiError && apiError}
+      {/* {apiError && apiError} */}
     </div>
   );
 };
