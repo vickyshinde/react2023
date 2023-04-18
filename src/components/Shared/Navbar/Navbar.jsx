@@ -35,6 +35,11 @@ const NavBar = () => {
           </NavLink>
         </li>
         <li className="nav-item">
+          <NavLink className="nav-link" to="/user-add-mongo">
+            User add Mongo
+          </NavLink>
+        </li>
+        <li className="nav-item">
           <NavLink className="nav-link" to="/contact">
             Contact
           </NavLink>

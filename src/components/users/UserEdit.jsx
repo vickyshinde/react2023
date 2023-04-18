@@ -60,6 +60,7 @@ const UserEdit = () => {
         setFromData(data);
         setLoader(false);
       } catch (err) {
+        setLoader(false);
         console.error(`${err.message} 💥`);
       }
     };
