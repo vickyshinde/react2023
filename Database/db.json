@@ -6784,13 +6784,6 @@
       "password": "i28EfhVS"
     },
     {
-      "id": 970,
-      "name": "Lothario Gosswell",
-      "email": "lgosswellqx@dailymail.co.uk",
-      "contact": "192 674 1862",
-      "password": "uklE8A4q"
-    },
-    {
       "id": 971,
       "name": "Elinore Gogerty",
       "email": "egogertyqy@blogspot.com",
@@ -7036,19 +7029,20 @@
       "id": 1005
     },
     {
-      "name": "reshma",
-      "email": "reshma",
-      "contact": "test",
-      "password": "tets",
-      "id": 1006
+      "name": "Vishal Shinde",
+      "email": "vishal@yahoo.com",
+      "contact": "345345345",
+      "password": "4fsfdcvishal",
+      "occupation": "3",
+      "id": 1008
     },
     {
-      "name": "11111122222",
-      "email": "111111@gmail.com",
-      "contact": "111111",
-      "password": "111111",
-      "occupation": "1",
-      "id": 1007
+      "name": "Dhanraj",
+      "email": "dhanraj@gmail.com",
+      "contact": "353543543",
+      "password": "rgrddfgfd",
+      "occupation": "2",
+      "id": 1009
     }
   ],
   "Products": [
@@ -7291,6 +7285,138 @@
         "rate": 3.6,
         "count": 145
       }
+    }
+  ],
+  "Category": [
+    {
+      "id": 1,
+      "name": "Category 1",
+      "sub": [
+        {
+          "id": 1,
+          "name": "Category1 Sub 1"
+        },
+        {
+          "id": 2,
+          "name": "Category1 Sub 2"
+        },
+        {
+          "id": 3,
+          "name": "Category1 Sub 3"
+        },
+        {
+          "id": 4,
+          "name": "Category1 Sub 4"
+        },
+        {
+          "id": 5,
+          "name": "Category1 Sub 5"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Category 2",
+      "sub": [
+        {
+          "id": 1,
+          "name": "Category2 Sub 1"
+        },
+        {
+          "id": 2,
+          "name": "Category2 Sub 2"
+        },
+        {
+          "id": 3,
+          "name": "Category2 Sub 3"
+        },
+        {
+          "id": 4,
+          "name": "Category2 Sub 4"
+        },
+        {
+          "id": 5,
+          "name": "Category2 Sub 5"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Category 3",
+      "sub": [
+        {
+          "id": 1,
+          "name": "Category3 Sub 1"
+        },
+        {
+          "id": 2,
+          "name": "Category3 Sub 2"
+        },
+        {
+          "id": 3,
+          "name": "Category3 Sub 3"
+        },
+        {
+          "id": 4,
+          "name": "Category3 Sub 4"
+        },
+        {
+          "id": 5,
+          "name": "Category3 Sub 5"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Category 4",
+      "sub": [
+        {
+          "id": 1,
+          "name": "Category4 Sub 1"
+        },
+        {
+          "id": 2,
+          "name": "Category4 Sub 2"
+        },
+        {
+          "id": 3,
+          "name": "Category4 Sub 3"
+        },
+        {
+          "id": 4,
+          "name": "Category4 Sub 4"
+        },
+        {
+          "id": 5,
+          "name": "Category4 Sub 5"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Category 5",
+      "sub": [
+        {
+          "id": 1,
+          "name": "Category5 Sub 1"
+        },
+        {
+          "id": 2,
+          "name": "Category5 Sub 2"
+        },
+        {
+          "id": 3,
+          "name": "Category5 Sub 3"
+        },
+        {
+          "id": 4,
+          "name": "Category5 Sub 4"
+        },
+        {
+          "id": 5,
+          "name": "Category5 Sub 5"
+        }
+      ]
     }
   ]
 }

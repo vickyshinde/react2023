@@ -26,14 +26,15 @@ const UserListingAdv = () => {
       // console.log(response);
       if (!response.ok) throw new Error(`${response.status} Problem with getting data`);
       const data = await response.json();
-      // console.log(data);
+      console.log(data);
       const totalPageCount = Math.ceil(response.headers.get('X-Total-Count') / controller.rowsPerPage);
       setUserList(data);
       setTotalCount(totalPageCount);
       setLoader(false);
     } catch (err) {
-      console.error(`${err.message} 💥`);
-      setApiError(`${err.message} 💥`);
+      console.error(`${err.code} ${err.message} 💥`);
+      setApiError(`${err.code} ${err.message} 💥`);
+      setLoader(false);
     }
   };
 

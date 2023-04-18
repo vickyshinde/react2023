@@ -49,3 +49,12 @@ export const deleteUser = (id) => {
     method: 'delete'
   });
 };
+
+export const getCategory = () => {
+  const url = `${API_URL}/Category`;
+  return fetch(url);
+};
+export const getSubCategory = (id) => {
+  const url = `${API_URL}/Category/${id}`;
+  return fetch(url);
+};

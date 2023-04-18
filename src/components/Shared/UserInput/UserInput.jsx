@@ -42,7 +42,7 @@ const UserInputWrapped = (props) => {
   );
 };
 
-const UserInput = ({ label, id, name, type, clsName, placeholder, isValid, onChange, value, selectList }) => {
+const UserInput = ({ label, id, index, name, type, clsName, placeholder, isValid, onChange, value, selectList }) => {
   /* const selectedVal = selectList.map((item) => {
     if (val === item.id) {
       return item.name;
@@ -63,7 +63,8 @@ const UserInput = ({ label, id, name, type, clsName, placeholder, isValid, onCha
             id={id}
             name={name}
             onChange={(event) => {
-              onChange(event.target.name, event.target.value);
+              onChange(event.target.name, event.target.value, index);
+              // console.log(event.target.name, event.target.value, index);
             }}>
             <option defaultValue>{placeholder}</option>
             {selectList.map((item) => {
@@ -85,7 +86,7 @@ const UserInput = ({ label, id, name, type, clsName, placeholder, isValid, onCha
             value={value}
             onChange={(event) => {
               onChange(event.target.name, event.target.value);
-              console.log(event.target.name, event.target.value);
+              // console.log(event.target.name, event.target.value);
             }}
           />
         )}
@@ -99,8 +100,9 @@ export default UserInputWrapped;
 
 UserInput.defaultProps = {
   id: '',
+  index: '',
   name: '',
-  label: 'Input',
+  label: '',
   type: 'text',
   clsName: 'inputClass',
   placeholder: 'placeholder',
@@ -113,6 +115,7 @@ UserInput.defaultProps = {
 UserInput.propTypes = {
   label: PropTypes.string,
   id: PropTypes.string,
+  index: PropTypes.string,
   name: PropTypes.string,
   type: PropTypes.string,
   clsName: PropTypes.string,
