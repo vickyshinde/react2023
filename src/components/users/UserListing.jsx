@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getUsers } from '../../config/api-endpoints';
+import { dateFormats } from '../../constants/dateFormats';
+import { dateFormater, getFormatedDate } from '../../utility/date-utils';
 
 const UserListing = () => {
   const [userList, setUserList] = useState([]);
@@ -37,7 +39,12 @@ const UserListing = () => {
 
   return (
     <div className="userListPage">
-      <h2 className="my-4">User List</h2>
+      <h2 className="my-4">User List July 22, 2018 (2023-04-25T09:54:54.833Z)</h2>
+      <h4>{getFormatedDate(new Date('2023-04-25T09:54:54.833Z'), dateFormats.dddd_MM_DD)}</h4>
+      <h4>{getFormatedDate(new Date('2023-04-25T09:54:54.833Z'), dateFormats.MM_DD_dddd)}</h4>
+      <h4>{getFormatedDate(new Date('2023-04-25T09:54:54.833Z'), dateFormats.dddd_MMMM_DD)}</h4>
+      <h4>{getFormatedDate(new Date('2023-04-25T09:54:54.833Z'), dateFormats.DD_MM_dddd)}</h4>
+      <h4>{dateFormater(new Date('2023-04-01T09:54:54.833Z'))}</h4>
       {loader ? (
         <h2 style={{ color: 'red' }}>loading....</h2>
       ) : (
