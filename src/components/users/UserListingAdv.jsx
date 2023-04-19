@@ -39,9 +39,13 @@ const UserListingAdv = () => {
   };
 
   useEffect(() => {
-    getData();
+    const debounce = setTimeout(() => {
+      getData();
+      console.log('hi');
+    }, 500);
     // console.log(controller.sortColumn);
     // console.log(controller.order);
+    return () => clearTimeout(debounce);
   }, [controller]);
   // console.log(userList);
 

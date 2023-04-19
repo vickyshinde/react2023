@@ -1,28 +1,48 @@
 import { APP_CONSTANTS } from '../components/appConstants';
-import { sendRequest } from './commonMethod';
 
 const { API_USERS, API_URL, API_URL_MONGODB } = APP_CONSTANTS;
 const usersApiEndPoint = `${API_URL}/Users/`;
 
-export const getUsers = async () => {
-  let responseData = {};
-  const url = `${API_USERS}/users`;
-  console.log(url);
-  try {
-    responseData = await sendRequest('get', url);
-    console.log('api-endpoint', responseData);
-  } catch (error) {
-    console.log(error);
-  }
+//
+const API_ENDPOINT = {
+  getPlaceholderUsersApiEndpoint: `${API_USERS}/users`,
+  getJsonServerUsersApiEndpoint: `${API_URL}/Users/`,
 
-  return responseData;
-  // return fetch(url);
+  setQueryParams(url, params) {
+    console.log(params);
+    if (params) {
+      const paramArr = Object.keys(params).map((key) => `${key}=${params[key]}`);
+      console.log(paramArr);
+      const queryParams = paramArr.join('&');
+
+      if (url.indexOf('?') === -1) {
+        return `${url}?${queryParams}`;
+      }
+      return `${url}&${queryParams}`;
+    }
+    return url;
+  }
 };
 
+export default API_ENDPOINT;
+//
+
 export const getUsersAdv = (controller) => {
-  const url = `${usersApiEndPoint}?_page=${controller.currentPage}&_limit=${controller.rowsPerPage}&q=${controller.searchInput}&_sort=${controller.sortColumn}&_order=${controller.order}`;
+  const {
+    QUERY_STRING: { PAGE, LIMIT, QUERY, SORT, ORDER }
+  } = APP_CONSTANTS;
+  const { currentPage, rowsPerPage, searchInput, sortColumn, order } = controller;
+  // const url = `${usersApiEndPoint}?_page=${currentPage}&_limit=${rowsPerPage}&q=${searchInput}&_sort=${sortColumn}&_order=${order}`;
   // console.log('url', url, controller);
-  return fetch(url);
+  const apiUrl = API_ENDPOINT.setQueryParams(API_ENDPOINT.getJsonServerUsersApiEndpoint, {
+    [PAGE]: encodeURIComponent(currentPage),
+    [LIMIT]: encodeURIComponent(rowsPerPage),
+    [QUERY]: encodeURIComponent(searchInput),
+    [SORT]: encodeURIComponent(sortColumn),
+    [ORDER]: encodeURIComponent(order)
+  });
+  console.log('apiUrl', apiUrl);
+  return fetch(apiUrl);
 };
 
 export const getOneUsersAdv = (id) => {

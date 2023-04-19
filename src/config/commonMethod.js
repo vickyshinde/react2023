@@ -17,7 +17,7 @@ export const sendRequest = async (method, url, data = null) => {
 
     responseData = await response.json();
 
-    console.log('commonMethod', responseData);
+    console.log('commonMethod sendRequest', responseData);
 
     if (!response.ok) {
       // eslint-disable-next-line no-throw-literal

@@ -183,11 +183,11 @@ export function dateFormater(date) {
   let day = date.getDate();
   // get month from 0 to 11
   let month = date.getMonth();
-  console.log(month);
+  // console.log(month);
   // conver month digit to month name
   // eslint-disable-next-line prefer-destructuring
   month = months[month];
-  console.log(month);
+  // console.log(month);
   const year = date.getFullYear();
 
   // show date in two digits

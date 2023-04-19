@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { getUsers } from '../../config/api-endpoints';
 import { dateFormats } from '../../constants/dateFormats';
 import { dateFormater, getFormatedDate } from '../../utility/date-utils';
+import { getPlaceholderUsers } from '../../config';
 
 const UserListing = () => {
   const [userList, setUserList] = useState([]);
@@ -12,7 +12,7 @@ const UserListing = () => {
     try {
       setLoader(true);
       // const response = await fetch(url);
-      const response = await getUsers();
+      const response = await getPlaceholderUsers();
       // console.log(response);
       if (!response.ok) throw new Error(`${response.status} Problem with getting data`);
       const data = await response.json();
@@ -28,8 +28,11 @@ const UserListing = () => {
 
   const getData = async () => {
     setLoader(true);
-    const response = await getUsers();
+    const response = await getPlaceholderUsers();
     setUserList(response);
+    /* if (response && response.message === statusOk) {
+      setUserList(response);
+    } */
     setLoader(false);
   };
   useEffect(() => {
