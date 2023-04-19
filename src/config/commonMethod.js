@@ -15,19 +15,21 @@ export const sendRequest = async (method, url, data = null) => {
   try {
     const response = await fetch(url, requestOptions);
 
+    console.log('sendRequest func success', response);
+
     responseData = await response.json();
 
-    console.log('commonMethod sendRequest', responseData);
+    console.log('sendRequest func json()', responseData);
 
     if (!response.ok) {
       // eslint-disable-next-line no-throw-literal
       throw {
         statusCode: response.status,
-        ...response
+        response
       };
     }
   } catch (error) {
-    console.log(error);
+    console.log('sendRequest func error', error);
     // isError = console.error();
     throw error;
   }

@@ -30,9 +30,14 @@ const UserListing = () => {
     setLoader(true);
     const response = await getPlaceholderUsers();
     setUserList(response);
-    /* if (response && response.message === statusOk) {
-      setUserList(response);
-    } */
+    console.log('user listing page', response);
+    // console.log(response.message);
+    // if (response && response.ok === true) {
+    //   setUserList(response);
+    // } else {
+    //   console.log('vicky');
+    //   console.log(response.status);
+    // }
     setLoader(false);
   };
   useEffect(() => {
@@ -48,22 +53,21 @@ const UserListing = () => {
       <h4>{getFormatedDate(new Date('2023-04-25T09:54:54.833Z'), dateFormats.dddd_MMMM_DD)}</h4>
       <h4>{getFormatedDate(new Date('2023-04-25T09:54:54.833Z'), dateFormats.DD_MM_dddd)}</h4>
       <h4>{dateFormater(new Date('2023-04-01T09:54:54.833Z'))}</h4>
-      {loader ? (
-        <h2 style={{ color: 'red' }}>loading....</h2>
-      ) : (
-        <table className="table table-bordered table-sm table-hover table-striped" width="100%">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">phone</th>
-              <th scope="col">website</th>
-              <th scope="col">company</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userList.map((item) => {
+
+      <table className="table table-bordered table-sm table-hover table-striped" width="100%">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">phone</th>
+            <th scope="col">website</th>
+            <th scope="col">company</th>
+          </tr>
+        </thead>
+        <tbody>
+          {userList.length > 0 ? (
+            userList.map((item) => {
               const { id, name, email, phone, website, company } = item;
               return (
                 <tr key={id}>
@@ -75,10 +79,15 @@ const UserListing = () => {
                   <td>{company.name}</td>
                 </tr>
               );
-            })}
-          </tbody>
-        </table>
-      )}
+            })
+          ) : (
+            <tr>
+              <td colSpan={6}>{loader ? <h2 style={{ color: 'red' }}>loading....</h2> : 'no data'}</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+
       {/* {apiError && apiError} */}
     </div>
   );

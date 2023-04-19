@@ -8,9 +8,10 @@ export const getPlaceholderUsers = async () => {
   try {
     responseData = await sendRequest('get', getPlaceholderUsersApiEndpoint);
     console.log('api-endpoint', getPlaceholderUsersApiEndpoint);
-    console.log('api-data', responseData);
+    console.log('getPlaceholderUsers func success', responseData);
   } catch (error) {
-    console.log(error);
+    console.log('getPlaceholderUsers func error', error);
+    responseData = error;
   }
 
   return responseData;
