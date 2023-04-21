@@ -9,12 +9,12 @@ const API_ENDPOINT = {
   getJsonServerUsersApiEndpoint: `${API_URL}/Users/`,
 
   setQueryParams(url, params) {
-    console.log(params);
+    // console.log(url, params);
     if (params) {
       const paramArr = Object.keys(params).map((key) => `${key}=${params[key]}`);
-      console.log(paramArr);
+      // console.log(paramArr);
       const queryParams = paramArr.join('&');
-
+      // console.log(url.indexOf('?'));
       if (url.indexOf('?') === -1) {
         return `${url}?${queryParams}`;
       }

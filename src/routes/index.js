@@ -4,6 +4,7 @@ import Loader from '../components/Shared/Loader';
 import UserListingAdv1 from '../components/users/UserListingAdv1';
 import UserEdit from '../components/users/UserEdit';
 import Form from '../components/Form/Form';
+import Form2 from '../components/Form/Form2';
 
 const ErrorPage = lazy(() => import('../components/ErrorPage/ErrorPage'));
 const Layout = lazy(() => import('../components/Layout/Layout'));
@@ -70,6 +71,14 @@ export const AppRoutes = () => {
             element={
               <Suspense fallback={<Loader />}>
                 <Form />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/form2"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Form2 />
               </Suspense>
             }
           />

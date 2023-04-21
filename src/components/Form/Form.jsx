@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import SubmitButtonWrapped from '../Shared/SubmitButton/SubmitButton';
 import UserInputWrapped from '../Shared/UserInput/UserInput';
 import { getCategory, getSubCategory } from '../../config/api-endpoints';
@@ -136,6 +137,9 @@ const Form = () => {
   // console.log(formData);
   return (
     <div className="test">
+      <NavLink className="nav-link" to="/form2">
+        <strong>Form Nav 2</strong>
+      </NavLink>
       <h2 className="my-4">Form</h2>
       {loader && <h2 style={{ color: 'red' }}>loading....</h2>}
       <form onSubmit={onSubmitClick}>
