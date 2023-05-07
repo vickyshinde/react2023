@@ -40,6 +40,11 @@ const NavBar = () => {
           </NavLink>
         </li>
         <li className="nav-item">
+          <NavLink className="nav-link" to="/redux-crud-list">
+            Redux CRUD
+          </NavLink>
+        </li>
+        <li className="nav-item">
           <NavLink className="nav-link" to="/contact">
             Contact
           </NavLink>
