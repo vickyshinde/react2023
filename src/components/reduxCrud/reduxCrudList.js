@@ -6,9 +6,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Button, ButtonGroup } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { loadUsers } from '../../redux/actions';
+import { deleteUsers, loadUsers } from '../../redux/actions';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,6 +39,12 @@ const ReduxCrudList = () => {
   useEffect(() => {
     dispatch(loadUsers());
   }, []);
+
+  const handleDelete = (id) => {
+    if (window.confirm('Are you wanted to delete the user ?')) {
+      dispatch(deleteUsers(id));
+    }
+  };
   return (
     <div>
       <h2 className="my-4">User List</h2>
@@ -66,7 +73,14 @@ const ReduxCrudList = () => {
                     <StyledTableCell align="center">{email}</StyledTableCell>
                     <StyledTableCell align="center">{contact}</StyledTableCell>
                     <StyledTableCell align="center">{password}</StyledTableCell>
-                    <StyledTableCell align="center">btn</StyledTableCell>
+                    <StyledTableCell align="center">
+                      <ButtonGroup variant="outlined" size="small" aria-label="outlined button group">
+                        <Button color="error" onClick={() => handleDelete(id)}>
+                          Delete
+                        </Button>
+                        <Button color="primary">Edit</Button>
+                      </ButtonGroup>
+                    </StyledTableCell>
                   </StyledTableRow>
                 );
               })}
