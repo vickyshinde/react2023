@@ -13,6 +13,7 @@ const UserListing = lazy(() => import('../components/users/UserListing'));
 const UserListingAdv = lazy(() => import('../components/users/UserListingAdv'));
 const UserAddMongo = lazy(() => import('../components/users/UserAddMongo'));
 const ReduxCrudList = lazy(() => import('../components/reduxCrud/reduxCrudList'));
+const ReduxCrudAdd = lazy(() => import('../components/reduxCrud/reduxCrudAdd'));
 
 export const AppRoutes = () => {
   return (
@@ -30,6 +31,7 @@ export const AppRoutes = () => {
             <Route path="/form2" element={<Form2 />} />
             <Route path="/user-add-mongo" element={<UserAddMongo />} />
             <Route path="/redux-crud-list" element={<ReduxCrudList />} />
+            <Route path="/redux-crud-add" element={<ReduxCrudAdd />} />
             <Route path="*" element={<ErrorPage />} />
           </Route>
         </Routes>

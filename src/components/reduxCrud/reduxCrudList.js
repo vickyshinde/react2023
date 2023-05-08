@@ -6,9 +6,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button, ButtonGroup } from '@mui/material';
+import { Box, Button, ButtonGroup } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { deleteUsers, loadUsers } from '../../redux/actions';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -32,10 +33,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const ReduxCrudList = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.data);
 
-  console.log(users);
   useEffect(() => {
     dispatch(loadUsers());
   }, []);
@@ -48,6 +49,11 @@ const ReduxCrudList = () => {
   return (
     <div>
       <h2 className="my-4">User List</h2>
+      <Box sx={{ textAlign: 'center', marginBottom: 3 }}>
+        <Button variant="contained" color="primary" size="small" onClick={() => navigate('/redux-crud-add')}>
+          Add User
+        </Button>
+      </Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
