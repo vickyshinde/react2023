@@ -53,6 +53,7 @@ const ReduxCrudAdd = () => {
 
     setFromError({ ...err });
 
+    console.log({ ...err });
     console.log(Object.keys(err));
 
     return Object.keys(err).length < 1;
@@ -106,7 +107,7 @@ const ReduxCrudAdd = () => {
         noValidate
         autoComplete="off">
         <TextField
-          error={fromError.name}
+          error={!!fromError.name}
           helperText={fromError.name}
           id="filled-basic"
           label="Name"
@@ -119,7 +120,7 @@ const ReduxCrudAdd = () => {
         />
         <br />
         <TextField
-          error={fromError.email}
+          error={!!fromError.email}
           helperText={fromError.email}
           id="filled-basic"
           label="Email"
@@ -134,7 +135,7 @@ const ReduxCrudAdd = () => {
 
         <br />
         <TextField
-          error={fromError.contact}
+          error={!!fromError.contact}
           helperText={fromError.contact}
           id="filled-basic"
           label="Contact"
@@ -149,7 +150,7 @@ const ReduxCrudAdd = () => {
 
         <br />
         <TextField
-          error={fromError.password}
+          error={!!fromError.password}
           helperText={fromError.password}
           id="filled-basic"
           label="Password"
