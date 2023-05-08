@@ -1,10 +1,13 @@
 import { Box, TextField, Button } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import AlertMessage from '../Shared/AlertMessage/AlertMessage';
+import { userAdd } from '../../redux/actions';
 
 const ReduxCrudAdd = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFromData] = useState({
     name: '',
     email: '',
@@ -73,6 +76,9 @@ const ReduxCrudAdd = () => {
         clsName: 'alert-success',
         msg: 'User added successfully (submitted)'
       });
+      dispatch(userAdd(formData));
+      navigate('/redux-crud-list');
+      setFromError({});
     } else {
       setDisplayUserMsg({
         clsName: 'alert-danger',
