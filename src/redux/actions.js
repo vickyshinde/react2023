@@ -15,10 +15,10 @@ export const loadUsers = () => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/users`)
       .then((resp) => {
-        console.log('resp', resp);
+        console.warn('resp', resp);
         dispatch(getUsers(resp.data));
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error(error.message));
   };
 };
 
