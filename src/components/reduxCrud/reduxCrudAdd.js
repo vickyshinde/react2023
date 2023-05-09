@@ -1,10 +1,13 @@
 import { Box, TextField, Button } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import AlertMessage from '../Shared/AlertMessage/AlertMessage';
+import { userAdd } from '../../redux/actions';
 
 const ReduxCrudAdd = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFromData] = useState({
     name: '',
     email: '',
@@ -50,6 +53,7 @@ const ReduxCrudAdd = () => {
 
     setFromError({ ...err });
 
+    console.log({ ...err });
     console.log(Object.keys(err));
 
     return Object.keys(err).length < 1;
@@ -73,6 +77,9 @@ const ReduxCrudAdd = () => {
         clsName: 'alert-success',
         msg: 'User added successfully (submitted)'
       });
+      dispatch(userAdd(formData));
+      navigate('/redux-crud-list');
+      setFromError({});
     } else {
       setDisplayUserMsg({
         clsName: 'alert-danger',
@@ -100,7 +107,7 @@ const ReduxCrudAdd = () => {
         noValidate
         autoComplete="off">
         <TextField
-          error={fromError.name}
+          error={!!fromError.name}
           helperText={fromError.name}
           id="filled-basic"
           label="Name"
@@ -113,7 +120,7 @@ const ReduxCrudAdd = () => {
         />
         <br />
         <TextField
-          error={fromError.email}
+          error={!!fromError.email}
           helperText={fromError.email}
           id="filled-basic"
           label="Email"
@@ -128,7 +135,7 @@ const ReduxCrudAdd = () => {
 
         <br />
         <TextField
-          error={fromError.contact}
+          error={!!fromError.contact}
           helperText={fromError.contact}
           id="filled-basic"
           label="Contact"
@@ -143,7 +150,7 @@ const ReduxCrudAdd = () => {
 
         <br />
         <TextField
-          error={fromError.password}
+          error={!!fromError.password}
           helperText={fromError.password}
           id="filled-basic"
           label="Password"
