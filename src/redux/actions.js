@@ -14,6 +14,10 @@ const userAdded = () => ({
   type: types.ADD_USER
 });
 
+const userUpdated = () => ({
+  type: types.UPDATE_USER
+});
+
 const getUser = (user) => ({
   type: types.GET_SINGLE_USER,
   payload: user
@@ -63,6 +67,18 @@ export const getSingleUsers = (id) => {
       .then((resp) => {
         console.log('resp', resp);
         dispatch(getUser(resp.data));
+      })
+      .catch((error) => console.error(error));
+  };
+};
+
+export const updateUser = (user, id) => {
+  return function (dispatch) {
+    axios
+      .put(`${process.env.REACT_APP_API_URL}/users/${id}`, user)
+      .then((resp) => {
+        console.log('resp', resp);
+        dispatch(userUpdated());
       })
       .catch((error) => console.error(error));
   };

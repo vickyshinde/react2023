@@ -17,6 +17,7 @@ const usersReducers = (state = initialState, action) => {
       };
     case types.DELETE_USER:
     case types.ADD_USER:
+    case types.UPDATE_USER:
       return {
         ...state,
         loading: false

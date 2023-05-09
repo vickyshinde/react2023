@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import AlertMessage from '../Shared/AlertMessage/AlertMessage';
-import { getSingleUsers, userAdd } from '../../redux/actions';
+import { getSingleUsers, updateUser } from '../../redux/actions';
 
 const ReduxCrudEdit = () => {
   const { id } = useParams();
@@ -80,7 +80,7 @@ const ReduxCrudEdit = () => {
         clsName: 'alert-success',
         msg: 'User added successfully (submitted)'
       });
-      dispatch(userAdd(formData));
+      dispatch(updateUser(formData, id));
       navigate('/redux-crud-list');
       setFromError({});
       console.log(formData);
@@ -102,7 +102,7 @@ const ReduxCrudEdit = () => {
         ...user
       }));
     }
-  }, []);
+  }, [id]);
 
   return (
     <div>
