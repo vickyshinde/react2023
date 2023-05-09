@@ -1,11 +1,15 @@
 import { Box, TextField, Button } from '@mui/material';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import AlertMessage from '../Shared/AlertMessage/AlertMessage';
-import { userAdd } from '../../redux/actions';
+import { getSingleUsers, userAdd } from '../../redux/actions';
 
-const ReduxCrudAdd = () => {
+const ReduxCrudEdit = () => {
+  const { id } = useParams();
+  console.log(id);
+  const { user } = useSelector((state) => state.data);
+  console.log(user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formData, setFromData] = useState({
@@ -87,9 +91,22 @@ const ReduxCrudAdd = () => {
       });
     }
   };
+
+  useEffect(() => {
+    dispatch(getSingleUsers(id));
+  }, [id]);
+
+  useEffect(() => {
+    if (user) {
+      setFromData(() => ({
+        ...user
+      }));
+    }
+  }, []);
+
   return (
     <div>
-      <h2 className="my-4">User Add</h2>
+      <h2 className="my-4">User Edit</h2>
       <Box sx={{ textAlign: 'center', marginBottom: 3 }}>
         <Button variant="contained" color="secondary" size="small" onClick={() => navigate('/redux-crud-list')}>
           GO to List page
@@ -113,7 +130,7 @@ const ReduxCrudAdd = () => {
           variant="filled"
           size="small"
           name="name"
-          value={formData.name}
+          value={formData.name || ''}
           type="text"
           onChange={handleInputChange}
         />
@@ -126,7 +143,7 @@ const ReduxCrudAdd = () => {
           variant="filled"
           size="small"
           name="email"
-          value={formData.email}
+          value={formData.email || ''}
           type="email"
           onChange={handleInputChange}
         />
@@ -141,8 +158,8 @@ const ReduxCrudAdd = () => {
           variant="filled"
           size="small"
           name="contact"
-          value={formData.contact}
-          type="number"
+          value={formData.contact || ''}
+          type="text"
           onChange={handleInputChange}
         />
         {fromError.contact && <small className="invalid-feedback">{fromError.contact}</small>}
@@ -156,7 +173,7 @@ const ReduxCrudAdd = () => {
           variant="filled"
           size="small"
           name="password"
-          value={formData.password}
+          value={formData.password || ''}
           type="text"
           onChange={handleInputChange}
         />
@@ -164,11 +181,11 @@ const ReduxCrudAdd = () => {
 
         <br />
         <Button variant="contained" color="primary" type="submit">
-          Add User
+          Update User
         </Button>
       </Box>
     </div>
   );
 };
 
-export default ReduxCrudAdd;
+export default ReduxCrudEdit;

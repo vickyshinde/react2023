@@ -14,6 +14,7 @@ const UserListingAdv = lazy(() => import('../components/users/UserListingAdv'));
 const UserAddMongo = lazy(() => import('../components/users/UserAddMongo'));
 const ReduxCrudList = lazy(() => import('../components/reduxCrud/reduxCrudList'));
 const ReduxCrudAdd = lazy(() => import('../components/reduxCrud/reduxCrudAdd'));
+const ReduxCrudEdit = lazy(() => import('../components/reduxCrud/reduxCrudEdit'));
 
 export const AppRoutes = () => {
   return (
@@ -32,6 +33,7 @@ export const AppRoutes = () => {
             <Route path="/user-add-mongo" element={<UserAddMongo />} />
             <Route path="/redux-crud-list" element={<ReduxCrudList />} />
             <Route path="/redux-crud-add" element={<ReduxCrudAdd />} />
+            <Route path="/redux-crud-edit/:id" element={<ReduxCrudEdit />} />
             <Route path="*" element={<ErrorPage />} />
           </Route>
         </Routes>
