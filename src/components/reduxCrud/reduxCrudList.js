@@ -84,7 +84,9 @@ const ReduxCrudList = () => {
                         <Button color="error" onClick={() => handleDelete(id)}>
                           Delete
                         </Button>
-                        <Button color="primary">Edit</Button>
+                        <Button color="primary" onClick={() => navigate(`/redux-crud-edit/${id}`)}>
+                          Edit
+                        </Button>
                       </ButtonGroup>
                     </StyledTableCell>
                   </StyledTableRow>
